@@ -1,0 +1,15 @@
+{
+    "compilerOptions":{
+        "baseUrl":".",
+        "paths":{
+            "@pages/*":["pages/*"],//here the @pages/* that means the we are targetting the all folder and files inside the pages folder 
+            "@component/*":["component/*"],
+            "@styles/*":["styles/*"]//That  allow You to instead of writing the all Huge import statement we can 
+            //write for example 
+            //in _app.js I want to import the global.css  from styles generally what i can do is following  
+            //import '../styles/globals.css'
+            //instead of the above we can write 
+            //import '@styles/globals.css'
+        }
+    }
+}
