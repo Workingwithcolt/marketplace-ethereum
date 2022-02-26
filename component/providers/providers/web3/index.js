@@ -1,7 +1,11 @@
 import React,{useEffect,useState,useMemo} from "react";
+
 import detectEthereumProvider from "@metamask/detect-provider";
+
 import Web3 from "web3";
+
 import { setupHooks }from "../../../common/web3/hooks/setup-hook";
+
 
 
 const Web3Context = React.createContext("c")
@@ -28,7 +32,8 @@ export  const Web3Provider = ({children}) =>{
                 })
                 console.log(web3)
             }else{
-                setWeb3Api(api => ({...api,isInitialized:true}))
+                setWeb3Api(api => ({...api,isLoading:false}))
+                console.log(Web3Api,"It is the Web3Api")
                 console.log("Please install the metamask")
             }
         }

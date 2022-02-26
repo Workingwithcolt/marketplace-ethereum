@@ -12,11 +12,10 @@ export default function Navbar(props){
     const {connect,isLoading,isWeb3Loaded}  = useWeb3()
     const a = useAccount()//here it return the function then that particular function we get at the a 
     //then we call it and extract value of account by distructurising
-    const {account} = a()
-     console.log(account+"It is the account")
+    const accounts = a()
+     console.log(accounts+"It is the account")
     console.log("It is the account")
-
-    console.log(account)
+    const {account} = accounts
     // const {account}   = c()
     // // const {{account}} = useAccount(web3)
     // const _useAccount =  useAccount(web3)
@@ -76,8 +75,10 @@ export default function Navbar(props){
                 :
                  isWeb3Loaded//AT  when the web3 is loaded on the pc 
                  ?
-                 account ?
-                <Button >
+                 account.data ?
+                <Button 
+                disabled = {true}
+                >
                     Hi There
                 </Button>
                 :
@@ -90,7 +91,8 @@ export default function Navbar(props){
                 disabled = {true}
                     // onClick = {() => router.push("https://metamask.io/download.html")}
                     onClick = {() =>window.open("https://metamask.io/download.html","_blank")}
-                    >Installing Metamask //When  the ganache is not connected
+                    >Installing Metamask 
+                    {/* When  the ganache is not connected */}
                 </Button>//Here We use the router because the We want to make the functionaltity such that  when we 
                 //click on the button we get to the metamask installation webpage That When I click On that button 
                 //I go to that Webpage in the Current open Site That overriding the https://localhost:3000
@@ -101,10 +103,10 @@ export default function Navbar(props){
             </nav>
         </div>
      {
-         account && 
+         account.data && 
          <div className ="flex justify-end pt-2 sm:px-6 lg:px-8">
          <div className = "text-white bg-indigo-600 rounded-md p-2"> 
-             {account}
+             {account.data}
         </div>
         </div>
      }

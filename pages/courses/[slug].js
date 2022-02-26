@@ -18,7 +18,6 @@ export default function Course({course}) {
         {/*------ HERO STARTS ------*/}
         
         <Hero
-
         title = {course.title}
         description ={course.description}
         Img ={course.coverImage}
@@ -58,11 +57,16 @@ export default function Course({course}) {
   }
   //Here when i click on the  any course in the website i got the  the particular params of that course by path 
   export function getStaticProps({params}){
+    console.log(params)
+    console.log("It is the params")
     const {data} = getAllCourse()
-    const course = data.filter(c =>c.slug === params.slug)[0]
+    const course = data.filter(c => c.slug === params.slug)[0]
     return{
       props:{
         course
       }
     }
   }
+
+//Here in the above WE got the specific params from the paths parameter it is because the next .js is internallu
+//work or prerender all the pages then by use of the params we got the Url of that page 

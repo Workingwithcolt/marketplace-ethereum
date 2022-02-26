@@ -12,4 +12,3 @@ export const setupHooks =(...deps) =>{//if we dont remember which parameter you 
         useAccount:createUserAccount(...deps)//Here retunr the function 
     }
 }
-
