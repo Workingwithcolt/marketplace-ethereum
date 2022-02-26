@@ -77,9 +77,9 @@ export default function Navbar(props){
                  ?
                  account.data ?
                 <Button 
-                disabled = {true}
+                disabled = {false}
                 >
-                    Hi There
+                    Hi There {account.isAdmin ? "Admin" : null}
                 </Button>
                 :
                 <Button

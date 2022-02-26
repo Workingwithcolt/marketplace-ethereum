@@ -1,10 +1,14 @@
-import {useEffect } from 'react';
+import {useEffect,useState } from 'react';
 
 import useSWR from 'swr'
 
+const adminAddresses = {
+    "0xf53da6fe60c92afff74c87b28772ae4a37e2b3df28026cec5e1c803b41807407":true//That is in the form of keccac256
+}
+const [value,setValue] = useState(0)
 export const handler =  (web3,provider) => () =>{
     // const [account,setAccount] = useState(null)
-    const {mutate,...rest} = useSWR(() =>
+    const {data,mutate,...rest} = useSWR(() =>
          web3 ? "web3/accounts": null ,//It is the identifer Which can be last name of the website or the first name of the website      
         async () =>{
             const accounts = await web3.eth.getAccounts()
@@ -30,12 +34,19 @@ export const handler =  (web3,provider) => () =>{
     
         //we can do this in also another way  by use of the provider
         console.log("useEffect is called in the useAccount")
+        setValue(1)
         provider && 
         provider.on("accountChanged",
         accounts => mutate(accounts[0] ? accounts[0] : "null"))
     },[provider])
+    console.log("value:1 useEffect is called"+value)
     return {
-        account:{mutate,...rest}
+        account:{
+            data,
+            isAdmin:(data && adminAddresses[web3.utils.keccak256(data)]),
+            mutate,
+            ...rest
+        }
     }
 }
 
