@@ -4,7 +4,7 @@ import detectEthereumProvider from "@metamask/detect-provider";
 
 import Web3 from "web3";
 
-import { setupHooks }from "../../../common/web3/hooks/setup-hook";
+import { setupHooks } from "../../../common/web3/hooks/setup-hook";
 
 
 
@@ -15,11 +15,14 @@ export  const Web3Provider = ({children}) =>{
         provider:null,
         web3:null,
         contract:null,
-        isLoading:true
+        isLoading:true,
+        getHooks:setupHooks()
     })
+    
     useEffect(() =>{
         const loadProvider =async () =>{
             const provider =await  detectEthereumProvider()
+            
             console.log("Provider is "+provider)
             console.log(provider)
             if(provider){
@@ -28,7 +31,8 @@ export  const Web3Provider = ({children}) =>{
                     provider,
                     web3,
                     contract:null,
-                    isLoading:false
+                    isLoading:false,
+                    getHooks:setupHooks(web3,provider),
                 })
                 console.log(web3)
             }else{
@@ -41,12 +45,12 @@ export  const Web3Provider = ({children}) =>{
     },[])    
 
     const _Web3Api = useMemo(() =>{
-        const {web3,provider} = Web3Api
+        const {web3,provider,isLoading} = Web3Api
     return {
         ...Web3Api,
-        isWeb3Loaded:web3 != null,//What it return the true if the web3 is present
-        getHooks:() => setupHooks(web3,provider),
-       connect:provider ?
+        // isWeb3Loaded:web3 != null,//What it return the true if the web3 is present
+       requireinstall: !isLoading && !web3,
+        connect:provider ?
        async () => {
            try{
              provider.request({method:"eth_requestAccounts"})
@@ -59,7 +63,6 @@ export  const Web3Provider = ({children}) =>{
        () => console.log("Tring To connect")
     }
     },[Web3Api])
-    
     return(
 
         <Web3Context.Provider value ={Web3Api}>
@@ -78,8 +81,13 @@ export const  useWeb3  = () => {
 
 export function useHooks(cb){
     const {getHooks} = useWeb3()
-    return cb(getHooks());
+    try{
+    return cb(getHooks())
+    }catch(e){
+        return cb(getHooks)
+    }
     //here the getHooks() is the outside function i.e handler() function that function we pass to the cb 
     //which return the function that function we get at the navbar
 }
+
 

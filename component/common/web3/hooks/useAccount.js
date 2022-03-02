@@ -1,11 +1,11 @@
-import {useEffect,useState } from 'react';
+import {useEffect } from 'react';
 
 import useSWR from 'swr'
 
 const adminAddresses = {
     "0xf53da6fe60c92afff74c87b28772ae4a37e2b3df28026cec5e1c803b41807407":true//That is in the form of keccac256
 }
-const [value,setValue] = useState(0)
+
 export const handler =  (web3,provider) => () =>{
     // const [account,setAccount] = useState(null)
     const {data,mutate,...rest} = useSWR(() =>
@@ -34,12 +34,11 @@ export const handler =  (web3,provider) => () =>{
     
         //we can do this in also another way  by use of the provider
         console.log("useEffect is called in the useAccount")
-        setValue(1)
         provider && 
         provider.on("accountChanged",
         accounts => mutate(accounts[0] ? accounts[0] : "null"))
     },[provider])
-    console.log("value:1 useEffect is called"+value)
+    console.log("It is run again")
     return {
         account:{
             data,
