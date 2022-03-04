@@ -6,7 +6,7 @@ import {useAccount} from "@component/hooks/web3/index"
 // import {useAccount} from "../web3/hooks/useAccount"
 import {useRouter} from "next/dist/client/router"
 import {useWeb3} from "C:/Users/admin/Blockchain/marketplace-eth/component/providers/providers/web3/index"
-import Button from "C:/Users/admin/Blockchain/marketplace-eth/component/common/button/index"
+import {Button} from "C:/Users/admin/Blockchain/marketplace-eth/component/common/button/index"
 export default function Navbar(props){
     const {pathname} = useRouter()
     const {connect,isLoading,requireinstall}  = useWeb3()

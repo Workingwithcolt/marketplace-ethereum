@@ -1,4 +1,4 @@
-const Button = ({
+export const Button = ({
     children,
     disabled,
     classname = "text-white bg-indigo-600 hover:bg-indo-700",...rest}) =>{
@@ -12,5 +12,3 @@ const Button = ({
 
     )
 }
-
-export default Button;

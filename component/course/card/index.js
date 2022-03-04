@@ -1,7 +1,7 @@
 
 import Image from 'next/image'
 import Link from "next/Link"
-export default function Card({course}){
+export default function Card({course,Footer}){
     return (
         <div >
           <div className="md:flex-shrink-0">
@@ -26,6 +26,10 @@ export default function Card({course}){
             className="mt-2 text-gray-500">
             {course.description}
             </p>
+            {
+              Footer && 
+              <Footer c ={course} />
+            }
           </div>
         </div>
     )

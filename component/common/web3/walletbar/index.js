@@ -4,7 +4,7 @@ export default function Walletbar({account,target,isSupported,data,hasinitialres
   const {requireinstall} = useWeb3()
   console.log(hasinitialresponse,"It is the ")  
   return(
-        <section className="text-white bg-indigo-600">
+        <section className="text-white bg-indigo-600 rounded-lg">
               <div className="p-8">
              Loading
              {
